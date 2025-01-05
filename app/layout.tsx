@@ -27,7 +27,26 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+         <header className="button">
+        <div className="container p-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold">MicroPedro Remittance</h1>
+          <nav>
+            <ul className="flex space-x-4">
+              <li><a href="/" className="hover:underline">Home</a></li>
+              <li><a href="/payment" className="hover:underline">payment</a></li>
+              <li><a href="/Verifyotp" className="hover:underline">VerifyOTP</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
         {children}
+
+        <footer className="button">
+        <div className="container text-center">
+          <p>&copy; 2025 My App. All rights reserved.</p>
+        </div>
+      </footer>
       </body>
     </html>
   );

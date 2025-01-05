@@ -19,3 +19,28 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  margin: 50px;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  color-scheme: green;
+  background: linear-gradient(to right, #C38EB4, #E1CBD7, #86ABCF);
+
+}
+
+.button {
+  background: linear-gradient(to right, #C38EB4, #E1CBD7, #86ABCF);
+  border-radius: 2%;
+  padding: 0.5rem 1.5rem; /* Adjust padding if needed */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button:hover {
+  background: linear-gradient(to right, #86ABCF, #E1CBD7, #C38EB4); /* Optional: You can invert the gradient on hover */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

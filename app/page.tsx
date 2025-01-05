@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import ProcessPayment from "./payment/page";
-
 
 export default function UserRegistrationForm() {
   const [formData, setFormData] = useState({
@@ -57,6 +55,9 @@ export default function UserRegistrationForm() {
       const result = await response.json();
       setSuccessMessage("User registered successfully!");
       console.log("New user:", result);
+
+      // Navigate to payment page upon successful registration
+      window.location.href = "/payment";
     } catch (error) {
       console.error("Error registering user:", error);
       setErrorMessage(error instanceof Error ? error.message : "Unknown error");
@@ -65,50 +66,48 @@ export default function UserRegistrationForm() {
     }
   };
 
-  const handlePaymentPage = () => {
-    // Redirect to the payment page
-    window.location.href = "/payment";
-  }
-
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Register User</h1>
+    <div className="card p-6 border border-gray-300 rounded-md shadow-md bg-gradient-to-r text-black">
+      <h1 className="text-2xl font-bold mb-4 text-center">Welcome on MicroPedro Remittance</h1>
 
       {/* Registration Form */}
       <form className="space-y-4" onSubmit={handleSubmit}>
-        {/* First Name */}
-        <div>
-          <label htmlFor="first_name" className="block font-medium mb-2">
-            First Name
-          </label>
-          <input
-            type="text"
-            id="first_name"
-            value={formData.first_name}
-            onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-            className="border border-gray-300 rounded-md p-2 w-full"
-            required
-          />
-        </div>
+        {/* First Name and Last Name in a Row */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* First Name */}
+          <div>
+            <label htmlFor="first_name" className="block font-bold mb-2">
+              First Name
+            </label>
+            <input
+              type="text"
+              id="first_name"
+              value={formData.first_name}
+              onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
+              className="border border-gray-300 rounded-md p-2 w-full"
+              required
+            />
+          </div>
 
-        {/* Last Name */}
-        <div>
-          <label htmlFor="last_name" className="block font-medium mb-2">
-            Last Name
-          </label>
-          <input
-            type="text"
-            id="last_name"
-            value={formData.last_name}
-            onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-            className="border border-gray-300 rounded-md p-2 w-full"
-            required
-          />
+          {/* Last Name */}
+          <div>
+            <label htmlFor="last_name" className="block font-bold mb-2">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="last_name"
+              value={formData.last_name}
+              onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
+              className="border border-gray-300 rounded-md p-2 w-full"
+              required
+            />
+          </div>
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block font-medium mb-2">
+          <label htmlFor="email" className="block font-bold mb-2">
             Email
           </label>
           <input
@@ -123,7 +122,7 @@ export default function UserRegistrationForm() {
 
         {/* Address */}
         <div>
-          <label htmlFor="address" className="block font-medium mb-2">
+          <label htmlFor="address" className="block font-bold mb-2">
             Address
           </label>
           <input
@@ -138,7 +137,7 @@ export default function UserRegistrationForm() {
 
         {/* Document Upload */}
         <div>
-          <label htmlFor="document" className="block font-medium mb-2">
+          <label htmlFor="document" className="block font-bold mb-2">
             Document
           </label>
           <input
@@ -152,7 +151,7 @@ export default function UserRegistrationForm() {
 
         {/* Picture Upload */}
         <div>
-          <label htmlFor="picture" className="block font-medium mb-2">
+          <label htmlFor="picture" className="block font-bold mb-2">
             Picture
           </label>
           <input
@@ -164,52 +163,21 @@ export default function UserRegistrationForm() {
           />
         </div>
 
-        {/* Is Registered */}
-        <div>
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={formData.is_registered}
-              onChange={(e) => setFormData({ ...formData, is_registered: e.target.checked })}
-              className="border border-gray-300 rounded-md"
-            />
-            <span>Is Registered?</span>
-          </label>
-        </div>
-
         {/* Submit Button */}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600"
-          disabled={loading}
-        >
-          {loading ? "Registering..." : "Register User"}
-        </button>
+        <div className="text-center">
+          <button
+            type="submit"
+            className="button"
+            disabled={loading}
+          >
+            {loading ? "Processing..." : "Proceed to Payment"}
+          </button>
+        </div>
       </form>
 
       {/* Success/Error Messages */}
-      {successMessage && <p className="mt-4 text-green-500">{successMessage}</p>}
-      {errorMessage && <p className="mt-4 text-red-500">{errorMessage}</p>}
-
-
-
-      <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Process Payment</h1>
-
-      {/* Registration Form */}
-      <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-        <button
-          type="button"
-          className="bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600"
-          onClick={handlePaymentPage}
-        >
-          Go to Payment
-        </button>
-      </form>
+      {successMessage && <p className="mt-4 text-green-500 text-center">{successMessage}</p>}
+      {errorMessage && <p className="mt-4 text-red-500 text-center">{errorMessage}</p>}
     </div>
-    </div>
-
-
-
   );
 }
